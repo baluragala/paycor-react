@@ -1,0 +1,17 @@
+ES6
+---
+scoping - let & const ( ES5 var)
+template strings - `` (backticks), ${} - interpolation, whitespace aware
+rest - ... (variable args)
+spread - ...( unflod complex structure at one level)
+destructuring - array and object
+named params - 
+default args 
+arrow funtions - shorter syntax for function expressions and also auto bind
+classes - class , extends, accessors (get and set )
+for-of -
+iterables -> iterable and iterator -> iterator object cona=tains next()
+generators -> 
+
+
+JS - Single threaded

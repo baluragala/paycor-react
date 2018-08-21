@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/co/4.1.0/index.js"></script>
+  <script src="./generators.js"></script>
+</head>
+
+<body>
+  <script>
+    co(function* doWork() {
+      try {
+        step1();
+        yield step2();
+        yield step3();
+        step4();
+      } catch (err) { }
+    }
+    )
+
+    // function* doWork() {
+    //   try {
+    //     step1();
+    //     yield step2();
+    //     yield step3();
+    //     step4();
+    //   } catch (err) { }
+    // }
+
+    // var it = doWork();
+    // it.next().value
+    //   .then(() => it.next().value
+    //     .then(() => it.next()))
+  </script>
+</body>
+
+</html>
