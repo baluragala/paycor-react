@@ -7,7 +7,7 @@ class ProductList extends React.Component {
     this.state = {
       products: [
         { id: 1, title: "Dell XPS", price: 1000, stock: 20 },
-        { id: 2, title: "Dell Latitude", price: 700, stock: 20 },
+        { id: 2, title: "Dell", price: 700, stock: 20 },
         { id: 3, title: "Dell Alienware", price: 1200, stock: 20 },
         { id: 4, title: "Dell Pad", price: 900, stock: 20 },
         { id: 5, title: "Dell Mobile", price: 500, stock: 20 }
@@ -28,6 +28,7 @@ class ProductList extends React.Component {
         {this.state.products
           ? this.state.products.map(p => (
               <ProductListItem
+                key={p.id}
                 product={p}
                 addToCartClicked={this.onAddToCart}
               />

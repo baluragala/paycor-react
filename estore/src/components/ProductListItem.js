@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./ProductListItem.css";
+import PropTypes from "prop-types";
 
 class ProductListItem extends Component {
   render() {
@@ -17,5 +18,19 @@ class ProductListItem extends Component {
     );
   }
 }
+
+ProductListItem.propTypes = {
+  product: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    stock: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired
+  }),
+  addToCartClicked: PropTypes.func.isRequired
+};
+
+ProductListItem.defaultProps = {
+  product: { title: "no title" }
+};
 
 export default ProductListItem;
