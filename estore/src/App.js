@@ -14,7 +14,7 @@ class App extends Component {
     const message = "Welcome to React";
     return (
       <div className="App">
-        <Header />
+        <Header siteTitle="E-STORE" subTitle="this is sub" />
         {/* this is comment */}
         <AddProduct />
         <ProductList />

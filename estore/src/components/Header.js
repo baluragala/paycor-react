@@ -1,7 +1,7 @@
 import logo from "../logo.svg";
 import React from "react";
 
-function Header() {
+function Header({ siteTitle, subTitle }) {
   return (
     <header>
       <h1
@@ -9,8 +9,9 @@ function Header() {
         title="this is a tooltip from react"
         style={{ color: "red", fontSize: "1.5em" }}
       >
-        EStore
+        {siteTitle}
       </h1>
+      <h2>{subTitle}</h2>
     </header>
   );
 }
