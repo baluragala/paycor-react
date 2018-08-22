@@ -19,10 +19,25 @@ class ProductList extends React.Component {
   onAddToCart = id => {
     //alert(`ProductList -> Product ID:${id}`);
     const product = this.state.products.find(p => p.id == id);
+    //this.state.products[1] = { ...this.state.products[1] };
     this.setState({ cart: [...this.state.cart, product] });
   };
 
   _renderProducts() {
+    // return (
+    //   <ul>
+    //     {this.state.products
+    //       ? this.state.products.map(p => (
+    //           <ProductListItem
+    //             key={p.id}
+    //             product={{ ...p }}
+    //             addToCartClicked={this.onAddToCart}
+    //           />
+    //         ))
+    //       : null}
+    //   </ul>
+    // );
+
     return (
       <ul>
         {this.state.products

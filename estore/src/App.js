@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import ProductList from "./components/ProductList";
+import AddProduct from "./components/AddProduct";
 
 class App extends Component {
   getTitle() {
@@ -15,6 +16,7 @@ class App extends Component {
       <div className="App">
         <Header />
         {/* this is comment */}
+        <AddProduct />
         <ProductList />
       </div>
     );

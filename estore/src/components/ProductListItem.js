@@ -1,9 +1,22 @@
-import React, { Component } from "react";
+import React, { Component, PureComponent } from "react";
 import "./ProductListItem.css";
 import PropTypes from "prop-types";
 
-class ProductListItem extends Component {
+class ProductListItem extends PureComponent {
+  constructor(props) {
+    super(props);
+    console.log("1-constructor");
+  }
+
+  componentDidMount() {
+    console.log("3-componentDidMount");
+  }
+
+  componentDidUpdate() {
+    console.log("4-componentDidUpdate");
+  }
   render() {
+    console.log("2-render");
     const { title, price, stock, id } = this.props.product;
     return (
       <div className="item">
@@ -11,7 +24,12 @@ class ProductListItem extends Component {
           {title}({stock})
         </h1>
         <h3>{price}</h3>
-        <button onClick={() => this.props.addToCartClicked(id)}>
+        <button
+          onClick={e => {
+            console.log(e.target.textContent);
+            this.props.addToCartClicked(id);
+          }}
+        >
           ADD TO CART
         </button>
       </div>
