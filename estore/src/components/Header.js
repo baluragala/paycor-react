@@ -3,12 +3,11 @@ import React from "react";
 
 function Header() {
   return (
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
+    <header>
       <h1
         className="App-title"
         title="this is a tooltip from react"
-        style={{ backgroundColor: "yellow", color: "red" }}
+        style={{ color: "red", fontSize: "1.5em" }}
       >
         EStore
       </h1>
