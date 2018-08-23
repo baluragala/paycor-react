@@ -31,7 +31,7 @@ class App extends Component {
         {/* this is comment */}
         <Switch>
           <Route
-            exact={true}
+            exact
             path="/products"
             render={props => <ProductList {...props} additionalProp="test" />}
           />
