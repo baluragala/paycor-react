@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Redux</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.0/redux.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/redux-logger@3.0.6/dist/redux-logger.min.js"></script>
 </head>
 
 <body>
@@ -52,7 +53,7 @@
     }
 
     function counterReducer(prevState = { counter: 0 }, action) {
-
+      console.log('counterReducer', action);
       switch (action.type) {
         case 'INC':
           return { counter: prevState.counter + action.by }
@@ -66,9 +67,10 @@
 
 
     function productReducer(prevState = { products: [] }, action) {
+      console.log('productReducer', action);
       switch (action.type) {
         case 'GET_PRODUCTS':
-          return { products }
+          return { products: prevState.products }
         case 'ADD_PRODUCT':
           const products = prevState.products.map(p => ({ ...p }))
           products.push({ title: action.product.title })
@@ -84,7 +86,7 @@
       productState: productReducer
     })
 
-    const store = Redux.createStore(rootReducer);
+    const store = Redux.createStore(rootReducer, Redux.applyMiddleware(reduxLogger.createLogger()));
     store.subscribe(function () {
       console.log(store.getState());
     })

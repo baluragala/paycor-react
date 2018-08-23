@@ -36,3 +36,8 @@ PropTypes
 
 Events
 ------
+
+Redux
+-----
+
+action -> store -> reducer -> store -> subscriber - (sync)
