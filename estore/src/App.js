@@ -4,9 +4,10 @@ import "./App.css";
 import Header from "./components/Header";
 import ProductList from "./components/ProductList";
 import AddProduct from "./components/AddProduct";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import ProductDetail from "./components/ProductDetail";
+import NotFound from "./components/NotFound";
 
 class App extends Component {
   getTitle() {
@@ -20,9 +21,12 @@ class App extends Component {
         <Header siteTitle="E-STORE" subTitle="this is sub" />
         <NavBar />
         {/* this is comment */}
-        <Route exact={true} path="/products" component={ProductList} />
-        <Route path="/products/new" component={AddProduct} />
-        <Route path="/products/:productId" component={ProductDetail} />
+        <Switch>
+          <Route exact={true} path="/products" component={ProductList} />
+          <Route path="/products/new" component={AddProduct} />
+          <Route exact path="/products/:productId" component={ProductDetail} />
+          <Route component={NotFound} />
+        </Switch>
       </div>
     );
   }
