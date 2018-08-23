@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Redux</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.0/redux.js"></script>
+</head>
+
+<body>
+  <button id="inc">INC</button>
+  <span id="result">0</span>
+  <button id="dec">DEC</button>
+  <script>
+    /*
+      1. Single source of thruth - STORE
+      2. state is read only - STATE
+      3. changes must be made with pure functions - REDUCER
+
+      ACTION
+
+      plan:
+      ----
+      1. plan your actions
+      2. code your reducer 
+      3. createStore
+
+
+
+
+    */
+
+    const incAction = { type: 'INC', by: 5 }
+    const decAction = { type: 'DEC', by: 5 }
+
+    function counterReducer(prevState = { counter: 0 }, action) {
+
+      switch (action.type) {
+        case 'INC':
+          return { counter: prevState.counter + action.by }
+        case 'DEC':
+          return { counter: prevState.counter - action.by }
+        default:
+          return prevState
+      }
+
+    }
+
+    const store = Redux.createStore(counterReducer);
+    store.subscribe(function () {
+      console.log(store.getState());
+    })
+
+    const incBtn = document.querySelector("#inc")
+    incBtn.addEventListener("click", function () {
+      store.dispatch(incAction)
+    })
+
+    const decBtn = document.querySelector("#dec")
+    decBtn.addEventListener("click", function () {
+      store.dispatch(decAction)
+    })
+
+    const span = document.querySelector("#result")
+    store.subscribe(function () {
+      span.textContent = store.getState().counter;
+    })
+
+  </script>
+</body>
+
+</html>
