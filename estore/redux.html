@@ -10,9 +10,17 @@
 </head>
 
 <body>
-  <button id="inc">INC</button>
-  <span id="result">0</span>
-  <button id="dec">DEC</button>
+  <div>
+    <button id="inc">INC</button>
+    <span id="result">0</span>
+    <button id="dec">DEC</button>
+  </div>
+  <div>
+    <button id="getProducts">GET PRODUCTS</button>
+    <button id="addProduct">ADD PRODUCT</button>
+    <ul id="products">
+    </ul>
+  </div>
   <script>
     /*
       1. Single source of thruth - STORE
@@ -35,6 +43,14 @@
     const incAction = { type: 'INC', by: 5 }
     const decAction = { type: 'DEC', by: 5 }
 
+    const getProductsActionCreator = function () {
+      return { type: 'GET_PRODUCTS' }
+    }
+
+    const addProductActionCreator = function (product) {
+      return { type: 'ADD_PRODUCT', product }
+    }
+
     function counterReducer(prevState = { counter: 0 }, action) {
 
       switch (action.type) {
@@ -48,7 +64,27 @@
 
     }
 
-    const store = Redux.createStore(counterReducer);
+
+    function productReducer(prevState = { products: [] }, action) {
+      switch (action.type) {
+        case 'GET_PRODUCTS':
+          return { products }
+        case 'ADD_PRODUCT':
+          const products = prevState.products.map(p => ({ ...p }))
+          products.push({ title: action.product.title })
+          return { products }
+        default:
+          return prevState
+      }
+
+    }
+
+    const rootReducer = Redux.combineReducers({
+      counterState: counterReducer,
+      productState: productReducer
+    })
+
+    const store = Redux.createStore(rootReducer);
     store.subscribe(function () {
       console.log(store.getState());
     })
@@ -63,9 +99,26 @@
       store.dispatch(decAction)
     })
 
+    const getProductsBtn = document.querySelector("#getProducts")
+    getProductsBtn.addEventListener("click", function () {
+      const action = getProductsActionCreator()
+      store.dispatch(action)
+    })
+
+    const addProductBtn = document.querySelector("#addProduct")
+    addProductBtn.addEventListener("click", function () {
+      const action = addProductActionCreator({
+        title: `product - ${Math.random()}`
+      })
+      store.dispatch(action)
+    })
+
     const span = document.querySelector("#result")
+    const productList = document.querySelector("#products")
     store.subscribe(function () {
-      span.textContent = store.getState().counter;
+      span.textContent = store.getState().counterState.counter;
+      const items = store.getState().productState.products.map(p => `<li> ${p.title}</li>`).join("");
+      products.innerHTML = items;
     })
 
   </script>
