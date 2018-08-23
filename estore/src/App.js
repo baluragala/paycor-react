@@ -6,6 +6,7 @@ import ProductList from "./components/ProductList";
 import AddProduct from "./components/AddProduct";
 import { Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
+import ProductDetail from "./components/ProductDetail";
 
 class App extends Component {
   getTitle() {
@@ -21,6 +22,7 @@ class App extends Component {
         {/* this is comment */}
         <Route exact={true} path="/products" component={ProductList} />
         <Route path="/products/new" component={AddProduct} />
+        <Route path="/products/:productId" component={ProductDetail} />
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from "react";
 import "./ProductListItem.css";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 class ProductListItem extends PureComponent {
   constructor(props) {
@@ -21,7 +22,9 @@ class ProductListItem extends PureComponent {
     return (
       <div className="item">
         <h1>
-          {title}({stock})
+          <Link to={`/products/${id}`}>
+            {title}({stock})
+          </Link>
         </h1>
         <h3>{price}</h3>
         <button
