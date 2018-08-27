@@ -41,3 +41,24 @@ Redux
 -----
 
 action -> store -> reducer -> store -> subscriber - (sync)
+
+
+
+
+
+1. actionTypes
+  1.1 product.js
+  1.2 counter.js
+2.actionCreators
+  2.1 product.js
+  2.2 counter.js
+3. reducers
+  3.1 product.js
+  3.2 counter.js
+  3.3 index.js
+4. sagas
+  4.1. product.js
+
+5. index.js ( create store )
+
+6. ProductList ( connected component)
