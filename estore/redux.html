@@ -8,6 +8,7 @@
   <title>Redux</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.0/redux.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/redux-logger@3.0.6/dist/redux-logger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/redux-saga/0.16.0/redux-saga.js"></script>
 </head>
 
 <body>
@@ -44,12 +45,23 @@
     const incAction = { type: 'INC', by: 5 }
     const decAction = { type: 'DEC', by: 5 }
 
+
+
     const getProductsActionCreator = function () {
       return { type: 'GET_PRODUCTS' }
     }
 
+    const getProductsSuccessActionCreator = function (products) {
+      return { type: 'GET_PRODUCTS_SUCCESS', products }
+    }
+
     const addProductActionCreator = function (product) {
       return { type: 'ADD_PRODUCT', product }
+    }
+
+
+    const addProductSuccessActionCreator = function (product) {
+      return { type: 'ADD_PRODUCT_SUCCESS', product }
     }
 
     function counterReducer(prevState = { counter: 0 }, action) {
@@ -66,15 +78,19 @@
     }
 
 
-    function productReducer(prevState = { products: [] }, action) {
+    function productReducer(prevState = { products: [], isLoading: false }, action) {
       console.log('productReducer', action);
       switch (action.type) {
         case 'GET_PRODUCTS':
-          return { products: prevState.products }
+          return { ...prevState, isLoading: true }
+        case 'GET_PRODUCTS_SUCCESS':
+          return { ...prevState, products: action.products, isLoading: false }
         case 'ADD_PRODUCT':
-          const products = prevState.products.map(p => ({ ...p }))
-          products.push({ title: action.product.title })
-          return { products }
+          return { ...prevState, isLoading: true }
+        case 'ADD_PRODUCT_SUCCESS':
+          const newProducts = [...prevState.products];
+          newProducts.push(action.product);
+          return { ...prevState, isLoading: false, products: newProducts }
         default:
           return prevState
       }
@@ -86,7 +102,32 @@
       productState: productReducer
     })
 
-    const store = Redux.createStore(rootReducer, Redux.applyMiddleware(reduxLogger.createLogger()));
+    /*sagas- start*/
+    function* getProductsFromApi() { //worker 
+      let response = yield fetch("http://localhost:4000/products");
+      let products = yield response.json()
+      yield ReduxSaga.effects.put(getProductsSuccessActionCreator(products))
+    }
+
+    function* AddProductToApi(action) { //worker 
+      let response = yield fetch("http://localhost:4000/products", {
+        method: 'POST', body: JSON.stringify(action.product), headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      let product = yield response.json()
+      yield ReduxSaga.effects.put(addProductSuccessActionCreator(product))
+    }
+
+
+    function* productsWatcher() {
+      yield ReduxSaga.effects.all([ReduxSaga.effects.takeLatest('GET_PRODUCTS', getProductsFromApi), ReduxSaga.effects.takeLatest('ADD_PRODUCT', AddProductToApi)]) //watcher 
+    }
+
+    /*sagas- end*/
+    const sagaMiddleware = ReduxSaga.default();
+    const store = Redux.createStore(rootReducer, Redux.applyMiddleware(sagaMiddleware, reduxLogger.createLogger()));
+    sagaMiddleware.run(productsWatcher)
     store.subscribe(function () {
       console.log(store.getState());
     })
@@ -119,6 +160,10 @@
     const productList = document.querySelector("#products")
     store.subscribe(function () {
       span.textContent = store.getState().counterState.counter;
+      if (store.getState().productState.isLoading) {
+        products.innerHTML = `<li>Please wait...</li>`;
+        return;
+      }
       const items = store.getState().productState.products.map(p => `<li> ${p.title}</li>`).join("");
       products.innerHTML = items;
     })
