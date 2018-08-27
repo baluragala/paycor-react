@@ -64,6 +64,7 @@ class ProductList extends React.Component {
       <div>
         <h1>Products</h1>
         <h3>CART: {this.props.shoppingCart.map(p => p.title).join(" , ")}</h3>
+        <button onClick={() => this.props.getProducts()}>GET RPODUCTS</button>
         <h2>All good products</h2>
         {this._renderProducts()}
       </div>

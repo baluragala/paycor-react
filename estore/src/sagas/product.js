@@ -3,7 +3,15 @@ import {
   addProductSuccessActionCreator
 } from "../actionCreators/product";
 import { ADD_PRODUCT, GET_PRODUCTS } from "../actionTypes/product";
-import { takeLatest, put, all } from "redux-saga/effects";
+import {
+  takeLatest,
+  put,
+  all,
+  take,
+  fork,
+  cancel,
+  throttle
+} from "redux-saga/effects";
 
 /*sagas- start*/
 function* getProductsFromApi() {
@@ -26,9 +34,20 @@ function* AddProductToApi(action) {
   yield put(addProductSuccessActionCreator(product));
 }
 
+function* handleGetProducts() {
+  let taskId;
+  for (;;) {
+    yield take(GET_PRODUCTS);
+    // if (taskId) {
+    //   yield cancel(taskId);
+    // }
+    taskId = yield fork(getProductsFromApi);
+  }
+}
+
 export function* productsWatcher() {
   yield all([
-    takeLatest(GET_PRODUCTS, getProductsFromApi),
+    throttle(2000, GET_PRODUCTS, getProductsFromApi),
     takeLatest(ADD_PRODUCT, AddProductToApi)
   ]); //watcher
 }

@@ -62,3 +62,18 @@ action -> store -> reducer -> store -> subscriber - (sync)
 5. index.js ( create store )
 
 6. ProductList ( connected component)
+
+
+redux saga
+---------
+takeLatest
+takeEvery
+throttle
+
+core
+----
+take
+fork / spawn
+
+
+
