@@ -3,7 +3,8 @@ import "./AddProduct.css";
 import {
   titleChangeActionCreator,
   priceChangeActionCreator,
-  categoryChangeActionCreator
+  categoryChangeActionCreator,
+  addProductActionCreator
 } from "../actionCreators/product";
 
 import { connect } from "react-redux";
@@ -18,6 +19,10 @@ class AddProduct extends Component {
     //   categories: ["Mobiles", "Laptops", "Clothing", "Other"]
     // };
   }
+
+  handleSubmit = () => {
+    this.props.handleSubmit(this.props);
+  };
 
   render() {
     return (
@@ -35,7 +40,7 @@ class AddProduct extends Component {
             SET STOCK
           </button>
           <legend>Add Product</legend>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <label htmlFor="title">Product Title</label>
             <input
               type="text"
@@ -61,6 +66,7 @@ class AddProduct extends Component {
             </select>
             <label htmlFor="stock">Product Stock</label>
             <input type="number" ref={eleRef => (this.stockEleRef = eleRef)} />
+            <input type="submit" value=" ADD" />
           </form>
         </fieldset>
       </div>
@@ -88,6 +94,9 @@ function mapDispatchToProps(dispatch) {
     },
     handleCategoryChange: function(category) {
       dispatch(categoryChangeActionCreator(category));
+    },
+    handleSubmit: function(product) {
+      dispatch(addProductActionCreator(product));
     }
   };
 }

@@ -50,6 +50,18 @@
       "title": "product - 0.688037853230766",
       "stock": 20,
       "id": 6
+    },
+    {
+      "title": "iphone XL",
+      "price": "2000",
+      "category": "Mobiles",
+      "categories": [
+        "Mobiles",
+        "Laptops",
+        "Clothing",
+        "Other"
+      ],
+      "id": 7
     }
   ]
 }
