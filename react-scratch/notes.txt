@@ -7,3 +7,4 @@ Setup
 3. npm i babel-core babel-loade@7.0.0 babel-preset-env babel-preset-react  -D
 4. npm i html-webpack-plugin -D
 5. npm i webpack-dev-server -D
+6. npm i css-loader style-loader -D
