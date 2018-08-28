@@ -1,0 +1,9 @@
+webpack? - bundler, JS bundling tool
+
+Setup
+-----
+1. npm install webpack webpack-cli --save-dev
+2. npm install react react-dom
+3. npm i babel-core babel-loade@7.0.0 babel-preset-env babel-preset-react  -D
+4. npm i html-webpack-plugin -D
+5. npm i webpack-dev-server -D
