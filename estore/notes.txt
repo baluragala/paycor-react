@@ -82,3 +82,16 @@ unit testing
 
 
 
+testing
+-------
+test runner - jest
+test api - jest
+assertion lib - jest
+matchers - jest
+
+
+suite -> group of specs(tests)
+  describe()
+
+test -> one spec
+  it()
