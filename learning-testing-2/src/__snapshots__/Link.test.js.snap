@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link should have good snapshot 1`] = `
+<a
+  href="https://www.zeolearn.com"
+  onClick={[Function]}
+>
+  zeolearn
+</a>
+`;

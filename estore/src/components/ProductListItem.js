@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 class ProductListItem extends PureComponent {
   constructor(props) {
     super(props);
+    console.log(props);
     console.log("1-constructor");
   }
 
